@@ -43,3 +43,8 @@ class LoanApplication:
     loan_type: LoanType
     amount: Decimal
     region: str
+
+
+def has_capacity(underwriter: Underwriter) -> bool:
+    """Return True if the underwriter has capacity to take on another case."""
+    return underwriter.active_cases < underwriter.max_cases
