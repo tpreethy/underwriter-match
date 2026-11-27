@@ -29,3 +29,17 @@ class Underwriter:
     active_cases: int
     max_cases: int
     region: str | None = None
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class LoanApplication:
+    """A loan application that needs to be assigned to an underwriter.
+
+    Includes only the information needed to assign the application to an underwriter,
+    with no personal information about the applicant.
+    """
+
+    id: str
+    loan_type: LoanType
+    amount: Decimal
+    region: str
