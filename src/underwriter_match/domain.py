@@ -1,5 +1,7 @@
 """Core domain types for underwriter match."""
 
+from dataclasses import dataclass
+from decimal import Decimal
 from enum import StrEnum
 
 
@@ -10,3 +12,20 @@ class LoanType(StrEnum):
     AUTO = "auto"
     PERSONAL = "personal"
     SMALL_BUSINESS = "small_business"
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class Underwriter:
+    """A loan underwriter who can be assigned loan applications.
+    A region of None means the underwriter covers all regions.
+
+    Holds only the information needed to assign a loan application to an
+    underwriter, with no personal information about the underwriter.
+    """
+
+    id: int
+    loan_types: frozenset[LoanType]
+    max_loan_amount: Decimal
+    active_cases: int
+    max_cases: int
+    region: str | None = None
